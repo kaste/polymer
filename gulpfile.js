@@ -23,6 +23,8 @@ var del = require('del');
 
 var path = require('path');
 
+var minimalDocument = require('./util/minimalDocument');
+
 var micro = "polymer-micro.html";
 var mini = "polymer-mini.html";
 var max = "polymer.html";
@@ -35,17 +37,12 @@ var distMax = path.join(workdir, max);
 var pkg = require('./package.json');
 
 var cleanupPipe = lazypipe()
-  // Reduce script tags
-  .pipe(replace, /<\/script>\s*<script>/g, '\n\n')
-  // Add real version number
-  .pipe(replace, /(Polymer.version = )'master'/, '$1"' + pkg.version + '"')
   // remove leading whitespace and comments
   .pipe(polyclean.leftAlignJs)
   // remove html wrapper
-  .pipe(replace, '<html><head>', '')
-  .pipe(replace, '<meta charset="UTF-8">', '')
-  .pipe(replace, '</head><body><div hidden="" by-vulcanize="">', '')
-  .pipe(replace, '</div></body></html>', '')
+  .pipe(minimalDocument)
+  // Add real version number
+  .pipe(replace, /(Polymer.version = )'master'/, '$1"' + pkg.version + '"')
 ;
 
 function vulcanizeWithExcludes(target, excludes) {

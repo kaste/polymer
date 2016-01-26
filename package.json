@@ -17,6 +17,7 @@
     "lazypipe": "^0.2.3",
     "polyclean": "^1.2.0",
     "run-sequence": "^1.1.0",
+    "through2": "^2.0.0",
     "web-component-tester": "^4"
   },
   "scripts": {
