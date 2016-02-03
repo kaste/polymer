@@ -44,7 +44,12 @@ suite('globals', function() {
     // weird safari + selenium globals
     alert: true,
     confirm: true,
-    prompt: true
+    prompt: true,
+
+    // browserSync adds these
+    ___browserSync___: true,
+    ___browserSync___oldSocketIo: true,
+    io: true,
   };
 
   test('check global leakage', function() {
